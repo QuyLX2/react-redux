@@ -1,32 +1,12 @@
 import React, { Component } from 'react';
-import { Layout, Menu, message } from 'antd';
-import {
-    UserOutlined,
-    LaptopOutlined,
-    NotificationOutlined,
-} from '@ant-design/icons';
+import { Layout, Menu } from 'antd';
+import { Link } from 'react-router-dom';
+import routes from '../../../routes';
 
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
-const menu = (
-    <Menu onClick={handleMenuClick}>
-        <Menu.Item key="1" icon={<UserOutlined />}>
-            1st menu item
-      </Menu.Item>
-        <Menu.Item key="2" icon={<UserOutlined />}>
-            2nd menu item
-      </Menu.Item>
-        <Menu.Item key="3" icon={<UserOutlined />}>
-            3rd menu item
-      </Menu.Item>
-    </Menu>
-);
 
-function handleMenuClick(e) {
-    message.info('Click on menu item.');
-    console.log('click', e);
-}
 
 class NavLink extends Component {
     render() {
@@ -38,48 +18,20 @@ class NavLink extends Component {
                     defaultOpenKeys={['sub1']}
                     style={{ height: '100%' }}
                 >
-                    <SubMenu
-                        key="sub1"
-                        title={
-                            <span>
-                                <UserOutlined />
-                            subnav 1
-                            </span>
-                        }
-                    >
-                        <Menu.Item key="1">option1</Menu.Item>
-                        <Menu.Item key="2">option2</Menu.Item>
-                        <Menu.Item key="3">option3</Menu.Item>
-                        <Menu.Item key="4">option4</Menu.Item>
-                    </SubMenu>
-                    <SubMenu
-                        key="sub2"
-                        title={
-                            <span>
-                                <LaptopOutlined />
-                            subnav 2
-                            </span>
-                        }
-                    >
-                        <Menu.Item key="5">option5</Menu.Item>
-                        <Menu.Item key="6">option6</Menu.Item>
-                        <Menu.Item key="7">option7</Menu.Item>
-                        <Menu.Item key="8">option8</Menu.Item>
-                    </SubMenu>
-                    <SubMenu
-                        key="sub3"
-                        title={
-                            <span>
-                                <NotificationOutlined />
-                            subnav 3
-                            </span>
-                        }
-                    >
-                        <Menu.Item key="9">option9</Menu.Item>
-                        <Menu.Item key="10">option10</Menu.Item>
-                        <Menu.Item key="11">option11</Menu.Item>
-                        <Menu.Item key="12">option12</Menu.Item>
-                    </SubMenu>
+                    {routes.map((route, index) => {
+                        return route.children ? (
+                                <SubMenu key={index} icon={route.icon} title={route.name}>
+                                    {route.children.map((child, idx) => (
+                                        <Menu.Item key={child.name + idx}><Link to={child.path}>{child.name}</Link></Menu.Item>
+                                    ))}
+                                </SubMenu>
+                            ) : (
+                                <Menu.Item key={index} icon={route.icon}>
+                                    {console.log('path', route.path)}
+                                    <Link to={route.path}>{route.name}</Link>
+                                </Menu.Item>
+                            )
+                        })}
                 </Menu>
             </Sider>
         )
