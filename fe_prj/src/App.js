@@ -15,7 +15,6 @@ class App extends Component {
             <Route  path="/login">
               <LoginPage />
             </Route>
-            
           </Switch>
         </div>
       </Router>
