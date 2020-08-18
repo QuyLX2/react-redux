@@ -73,7 +73,7 @@ class UserHomePageDefault extends Component {
                                         Community
                                     </Link>
                                 </Menu.Item>
-                                <Menu.Item key="3">
+                                <Menu.Item key="3">-
                                     <Link to="/References">
                                         References
                                     </Link>
