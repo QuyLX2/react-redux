@@ -1,65 +1,47 @@
-import React, { Component } from 'react'
-import { Form, Input, Button, Checkbox } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import React, { Component } from 'react';
+import "../styles/style.css";
+import { Typography, Card } from 'antd';
+import { withRouter, Redirect } from 'react-router';
 
+// import { connect } from 'react-redux';
 
+const { Title, Text } = Typography;
 
-export default class LoginPage extends Component {
+class LoginPage extends Component {
     
+    onFinish = (data) => {
+        // console.log(data);
+        this.setState({ loading: true });
+        this.props.login(data).then(res => {
+            this.setState({ loading: false });
+            if (res.data.token) {
+                // window.location.href = "/";
+                // Khong su dung redirect
+                this.props.history.push = '/';
+                // console.log(value);
+            }
+        }).catch((err) => {
+            console.log(err);
+            this.setState({ err: err.response.data.err, loading: false });
+        });
+    }
+
     render() {
         return (
-            <Form
-                name="normal_login"
-                className="login-form"
-                initialValues={{
-                    remember: true,
-                }}
-                // onFinish={onFinish}
-            >
-                <Form.Item
-                    name="username"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your Username!',
-                        },
-                    ]}
-                >
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-                </Form.Item>
-                <Form.Item
-                    name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your Password!',
-                        },
-                    ]}
-                >
-                    <Input
-                        prefix={<LockOutlined className="site-form-item-icon" />}
-                        type="password"
-                        placeholder="Password"
-                    />
-                </Form.Item>
-                <Form.Item>
-                    <Form.Item name="remember" valuePropName="checked" noStyle>
-                        <Checkbox>Remember me</Checkbox>
-                    </Form.Item>
+            this.props.isLoggedIn ? <Redirect to="/" /> :
 
-                    <a className="login-form-forgot" href="">
-                        Forgot password
-                    </a>
-                </Form.Item>
-
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" className="login-form-button">
-                        Log in
-                    </Button>
-                        Or 
-                    <a href="">register now!</a>
-                </Form.Item>
-            </Form>
-        )
+                <div className="login" >
+                    <Card title="Login Form" style={{ width: 600, textAlign: "center" }} >
+                        <Title><Text underline type="warning">Login</Text></Title>
+                        {this.props.children}
+                    </Card>
+                </div>
+        );
     }
 }
+// function mapStateToProps(state) {
+//     return {
+//         isLoggedIn: state.user.isLoggedIn
+//     }
+// }
+export default LoginPage;
