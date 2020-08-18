@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
-import { Layout, Menu, Dropdown, Button, message } from 'antd';
+import React, { Component, Suspense } from 'react';
+import { Layout, Menu, Dropdown, Button, message, Tag } from 'antd';
 import {
     UserOutlined,
+    SyncOutlined,
 } from '@ant-design/icons';
 import { Input } from 'antd';
 import { Row, Col } from 'antd';
 import NavLink from '../components/sideBar/NavLink';
-import { Link } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 import FooterCom from '../components/footer/FooterCom';
+import Community from '../components/contents/Community';
+// import routes from '../../routes'
 
 const { Header, Content } = Layout;
 const { Search } = Input;
@@ -34,6 +37,8 @@ function handleMenuClick(e) {
 class UserHomePageDefault extends Component {
 
     render() {
+        const {routes} = this.props;
+        // {console.log("routes", routes)}
         return (
             <Layout>
                 <Header className="header">
@@ -94,13 +99,30 @@ class UserHomePageDefault extends Component {
                     </Row>
                 </Header>
 
-                <Content style={{ padding: '0 50px', margin: '50px 0 0 0' }}>
+                <Content>
                     <Layout style={{ padding: '24px 0', background: '#fff' }}>
                         <NavLink />
-                        <Content style={{ padding: '0 24px', minHeight: '80vh' }}>Content</Content>
+                        <Content style={{ padding: '0 24px', minHeight: '80vh' }}>
+                            <Switch>
+                                <Suspense fallback={<Tag icon={<SyncOutlined spin />} color="processing">Loading</Tag>}>
+                                    <Route path="/Community">
+                                        <Community />
+                                    </Route>
+                                    {routes.map((route) =>
+                                        route.children ? ( route.children.map((child) => (
+                                    <Route path={child.path}>
+                                        {child.component}
+                                    </Route>))
+                                    ) : (
+                                    <Route path={route.path}>
+                                        {route.component}
+                                    </Route>))
+                                    }
+                                </Suspense>
+                            </Switch>
+                        </Content>
                     </Layout>
                 </Content>
-
                 <FooterCom />
             </Layout>
         )
