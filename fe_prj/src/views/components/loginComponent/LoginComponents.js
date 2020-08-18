@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Input, Button, Checkbox, Spin, Alert } from 'antd';
 import { Link } from 'react-router-dom'
+import FormItem from 'antd/lib/form/FormItem';
 const layout = {
     labelCol: {
         span: 8,
@@ -70,12 +71,14 @@ export default class LoginComponents extends Component {
 
                 <Form.Item {...tailLayout} name="remember" valuePropName="checked">
                     <Checkbox>Remember me</Checkbox>
-                    <Button type="primary" htmlType="submit" disabled={this.state.loading}>
+                    
+                </Form.Item>
+                <FormItem>
+                    <Button style={{marginLeft: "20%"}} type="primary" htmlType="submit" disabled={this.state.loading}>
                         {this.state.loading ? <Spin /> : "Login"}
                     </Button>
                     <Button type="link"><Link to="/login/register-form">Register now!</Link></Button>
-                </Form.Item>
-
+                </FormItem>
             </Form>
         )
     }

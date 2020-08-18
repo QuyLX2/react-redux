@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import "../styles/style.css";
 import { Typography, Card } from 'antd';
 import { withRouter, Redirect } from 'react-router';
+import LoginComponents from '../components/loginComponent/LoginComponents';
 
 // import { connect } from 'react-redux';
 
@@ -32,8 +33,8 @@ class LoginPage extends Component {
 
                 <div className="login" >
                     <Card title="Login Form" style={{ width: 600, textAlign: "center" }} >
-                        <Title><Text underline type="warning">Login</Text></Title>
-                        {this.props.children}
+                        <Title><Text underline type="warning"> Login </Text></Title>
+                        {this.props.children} {console.log('log', this.props.children.props.children)}
                     </Card>
                 </div>
         );

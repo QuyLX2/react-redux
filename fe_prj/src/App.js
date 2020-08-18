@@ -13,7 +13,7 @@ class App extends Component {
       <Router>
         <div>
           <Switch>
-            <Route exact path="/login">
+            <Route path="/login">
               <LoginPage>
                 <Switch>
                   <Route exact path="/login">
@@ -25,7 +25,7 @@ class App extends Component {
                 </Switch>
               </LoginPage>
             </Route>
-            <Route path="/">
+            <Route exact path="/">
               <UserHomePageDefault routes={routes}>
               </UserHomePageDefault>
             </Route>
