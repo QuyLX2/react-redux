@@ -1,7 +1,11 @@
-import React, { Component } from 'react'
-import { Form, Input, Button, Checkbox, Spin, Alert } from 'antd';
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Form, Input, Button, Checkbox, Spin, Alert, Typography, Card } from 'antd';
+import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import FormItem from 'antd/lib/form/FormItem';
+
+const { Title, Text } = Typography;
+
 const layout = {
     labelCol: {
         span: 8,
@@ -27,6 +31,10 @@ export default class LoginComponents extends Component {
     }
     render() {
         return (
+            this.props.isLoggedIn ? <Redirect to="/" /> :
+        <Card title={<Text underline>Login</Text>} style={{ width: 600, textAlign:"center", margin: "50px auto" }} >
+            <Title><Text underline type="warning"> Login </Text></Title>
+                {/* {this.props.children} */}
             <Form
                 {...layout}
                 name="basic"
@@ -80,6 +88,7 @@ export default class LoginComponents extends Component {
                     <Button type="link"><Link to="/login/register-form">Register now!</Link></Button>
                 </FormItem>
             </Form>
+        </Card>
         )
     }
 }

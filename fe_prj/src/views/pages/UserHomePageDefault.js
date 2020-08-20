@@ -1,30 +1,30 @@
-import React, { Component, Suspense } from 'react';
-import { Layout, Menu, Dropdown, Button, message, Tag } from 'antd';
-import {
-    UserOutlined,
-    SyncOutlined,
-} from '@ant-design/icons';
+import React, { Component } from 'react';
+import { Layout, Menu, Dropdown, Button, message } from 'antd';
 import { Input } from 'antd';
 import { Row, Col } from 'antd';
-import NavLink from '../components/sideBar/NavLink';
 import { Link, Switch, Route } from 'react-router-dom';
 import FooterCom from '../components/footer/FooterCom';
 import Community from '../components/contents/Community';
-// import routes from '../../routes'
+import Documentations from '../components/contents/Documentations';
+import References from '../components/contents/References';
 
-const { Header, Content } = Layout;
+import {
+    UserOutlined,
+} from '@ant-design/icons';
+
+const { Header } = Layout;
 const { Search } = Input;
 
 const menu = (
     <Menu onClick={handleMenuClick}>
         <Menu.Item key="1" icon={<UserOutlined />}>
-            1st menu item
+            Your Profile
       </Menu.Item>
         <Menu.Item key="2" icon={<UserOutlined />}>
-            2nd menu item
+            Edit
       </Menu.Item>
         <Menu.Item key="3" icon={<UserOutlined />}>
-            3rd menu item
+            <Link to="/login">Log out</Link>
       </Menu.Item>
     </Menu>
 );
@@ -37,8 +37,6 @@ function handleMenuClick(e) {
 class UserHomePageDefault extends Component {
 
     render() {
-        const {routes} = this.props;
-        // {console.log("routes", routes)}
         return (
             <Layout>
                 <Header className="header">
@@ -73,7 +71,7 @@ class UserHomePageDefault extends Component {
                                         Community
                                     </Link>
                                 </Menu.Item>
-                                <Menu.Item key="3">-
+                                <Menu.Item key="3">
                                     <Link to="/References">
                                         References
                                     </Link>
@@ -82,7 +80,7 @@ class UserHomePageDefault extends Component {
                         </Col>
                         <Col span={8}>
                             <Search
-                                placeholder="input search text"
+                                placeholder="input search"
                                 onSearch={value => console.log(value)}
                                 style={{ width: 200 }}
                             />
@@ -98,31 +96,18 @@ class UserHomePageDefault extends Component {
                         </Col>
                     </Row>
                 </Header>
-
-                <Content>
-                    <Layout style={{ padding: '24px 0', background: '#fff' }}>
-                        <NavLink />
-                        <Content style={{ padding: '0 24px', minHeight: '80vh' }}>
-                            <Switch>
-                                <Suspense fallback={<Tag icon={<SyncOutlined spin />} color="processing">Loading</Tag>}>
-                                    <Route path="/Community">
-                                        <Community />
-                                    </Route>
-                                    {routes.map((route) =>
-                                        route.children ? ( route.children.map((child) => (
-                                    <Route path={child.path}>
-                                        {child.component}
-                                    </Route>))
-                                    ) : (
-                                    <Route path={route.path}>
-                                        {route.component}
-                                    </Route>))
-                                    }
-                                </Suspense>
-                            </Switch>
-                        </Content>
-                    </Layout>
-                </Content>
+                {/* Content */}
+                <Documentations />
+                {/* <Switch>
+                    <Route path="/Docs">
+                    </Route>
+                    <Route path="/Community" >
+                        <Community />
+                    </Route>
+                    <Route path="/References" >
+                        <References />
+                    </Route>
+                </Switch> */}
                 <FooterCom />
             </Layout>
         )

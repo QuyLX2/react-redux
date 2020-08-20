@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import UserHomePageDefault from './views/pages/UserHomePageDefault';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import LoginPage from './views/pages/LoginPage';
 import routes from './routes'
 import LoginComponents from './views/components/loginComponent/LoginComponents';
 import RegisterComponents from './views/components/loginComponent/RegisterComponents';
@@ -14,7 +13,7 @@ class App extends Component {
         <div>
           <Switch>
             <Route path="/login">
-              <LoginPage>
+              {/* <LoginPage> */}
                 <Switch>
                   <Route exact path="/login">
                     <LoginComponents/>
@@ -23,9 +22,9 @@ class App extends Component {
                     <RegisterComponents/>
                   </Route>
                 </Switch>
-              </LoginPage>
+              {/* </LoginPage> */}
             </Route>
-            <Route exact path="/">
+            <Route path="/">
               <UserHomePageDefault routes={routes}>
               </UserHomePageDefault>
             </Route>
