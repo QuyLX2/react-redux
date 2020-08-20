@@ -7,7 +7,7 @@ const { Title, Paragraph } = Typography;
 export default class Intro extends Component {
     render() {
         return (
-            <Row>
+            <Row style={{margin: "50px 0"}}>
                 <Col span={8}>
                     <Title level={3}>h3. Ant Design</Title>
                     <>

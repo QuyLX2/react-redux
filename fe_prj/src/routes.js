@@ -1,5 +1,6 @@
 import React from 'react';
 import { UserOutlined } from '@ant-design/icons';
+import OverView from '../src/views/components/introHomePageCom/OverView';
 
 
 const routes = [
@@ -7,7 +8,7 @@ const routes = [
         path: "/overview",
         name: "Overview",
         icon: <UserOutlined />,
-        component: <div>Overview Course</div>,
+        component: <OverView/>,
       },
     {
         path: '',

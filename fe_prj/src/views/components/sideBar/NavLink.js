@@ -20,13 +20,13 @@ class NavLink extends Component {
                 >
                     {routes.map((route, index) => {
                         return route.children ? (
-                                <SubMenu key={index + "a"} icon={route.icon} title={route.name}>
+                                <SubMenu key={index} icon={route.icon} title={route.name}>
                                     {route.children.map((child, idx) => (
                                         <Menu.Item key={child.name + idx}><Link to={child.path}>{child.name}</Link></Menu.Item>
                                     ))}
                                 </SubMenu>
                             ) : (
-                                <Menu.Item key={index + "s"} icon={route.icon}>
+                                <Menu.Item key={index} icon={route.icon}>
                                     {console.log('path', route.path)}
                                     <Link to={route.path}>{route.name}</Link>
                                 </Menu.Item>
